@@ -12,9 +12,9 @@ submit.addEventListener("click", (e) => {
 });
 
 firstNameInput.addEventListener("focusout", () => {
-  let allowed = /[-!$%#^&*()_+|~=`{}\[\]:";'<>?,.\/]/;
+  let reg = /[-!$%#^&*()_+|~=`{}\[\]:";'<>?,.\/]/;
   console.log(firstNameInput);
-  if (firstNameInput.value.match(allowed)) {
+  if (firstNameInput.value.match(reg)) {
     message.textContent = "name cannot contain symbols";
     message.classList.remove("remove");
     setTimeout(() => {
@@ -24,14 +24,15 @@ firstNameInput.addEventListener("focusout", () => {
 });
 
 phoneNumInput.addEventListener("focusout", () => {
-  if (phoneNumInput.textLength < 9) {
+  var reg = /^\d+$/;
+  if (phoneNumInput.textLength < 9 && !phoneNumInput.value.match(reg)) {
     message.textContent = "invalid Phone number minimum length of 9";
     message.classList.remove("remove");
     setTimeout(() => {
       message.classList.add("remove");
     }, 3000);
   }
-  if (phoneNumInput.textLength > 11) {
+  if (phoneNumInput.textLength > 11 && !phoneNumInput.value.match(reg)) {
     message.textContent = "invalid phone number minimum length of 11";
     message.classList.remove("remove");
     setTimeout(() => {
@@ -47,6 +48,6 @@ span.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
-modal.addEventListener("click", () => {
-  if (event.target == modal) modal.style.display = "none";
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) modal.style.display = "none";
 });
